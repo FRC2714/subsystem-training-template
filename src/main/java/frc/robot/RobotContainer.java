@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Intake;
 
 public class RobotContainer {
+  private final Intake m_intake = new Intake();
+
   private final Joystick m_buttonBoxRight = new Joystick(0);
   private final JoystickButton m_intakeButton = new JoystickButton(m_buttonBoxRight, 6);
   private final JoystickButton m_extakeButton = new JoystickButton(m_buttonBoxRight, 5);
