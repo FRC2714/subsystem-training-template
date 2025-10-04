@@ -2,6 +2,10 @@
 
 This is a template for training students on command based programming with a basic subsystem from our 2025 robot.
 
+Below is an image of the subsystem and the available motors and sensors and how it interacts with the game piece.
+
+<img width="1369" height="966" alt="image" src="https://github.com/user-attachments/assets/d49bfd02-673f-4b74-9498-d3ec869d0b8a" />
+
 ## Getting Started
 
 This template takes care of the motor configuration and infrastructure for you. All you need to do is fill in the sections of the program with a `TODO`:
