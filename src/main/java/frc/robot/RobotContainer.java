@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Intake;
 
@@ -24,13 +25,13 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // TODO: Intake button
+    m_intakeButton.whileTrue(new InstantCommand(() -> m_intake.intakeCommand()));
 
-    // TODO: Extake button
+    m_extakeButton.whileTrue(new InstantCommand(() -> m_intake.extakeCommand()));
 
-    // TODO: Score button
+    m_scoreButton.whileTrue(new InstantCommand(() -> m_intake.scoreCommand()));
 
-    // TODO: Stow button
+    m_stowButton.whileTrue(new InstantCommand(() -> m_intake.stowCommand()));
   }
 
   public Command getAutonomousCommand() {
