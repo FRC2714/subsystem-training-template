@@ -152,7 +152,7 @@ public class Intake extends SubsystemBase {
             setPivot(PivotSetpoint.EXTAKE);
             setRollerSpeed(RollerSetpoint.EXTATE);
             setIndexerSpeed(RollerSetpoint.EXTATE);
-        })
+        });
     }
 
     /** Intake the game piece further through the robot. */
