@@ -133,54 +133,25 @@ public class Intake extends SubsystemBase {
    * which is either scoring or extaking.
    */
   public Command intakeCommand() {
-    return this.run(() ->{
-      setPivot(PivotSetpoint.INTAKE);
-      setRollerSpeed(RollerSetpoint.INTAKE);
-      setIndexerSpeed(RollerSetpoint.INTAKE);
-    }).until(() -> m_outerBeamBreak.isPressed())
-    .andThen(() -> {
-      setRollerSpeed(RollerSetpoint.INTAKE_SLOW);
-      setIndexerSpeed(RollerSetpoint.INTAKE_SLOW);
-    }).until(() -> m_innerBeamBreak.isPressed())
-    .andThen(() -> {
-      setRollerSpeed(RollerSetpoint.STOP);
-      setIndexerSpeed(RollerSetpoint.STOP);
-    });
-
+    // TODO
+    return this.run(() -> {});
   }
 
   /** Spit the game piece back out. */
   public Command extakeCommand() {
-    return this.run(() -> {
-      setPivot(PivotSetpoint.EXTAKE);
-      setRollerSpeed(RollerSetpoint.EXTATE);
-      setIndexerSpeed(RollerSetpoint.EXTATE);
-    });
+    // TODO
+    return this.run(() -> {});
   }
 
   /** Intake the game piece further through the robot. */
-  public Command score() {
-    return this.run(
-      () -> {
-        setPivot(PivotSetpoint.SCORE);
-        setRollerSpeed(RollerSetpoint.SCORE);
-        setIndexerSpeed(RollerSetpoint.SCORE);
-      }
-    ).until(() -> !m_innerBeamBreak.isPressed())
-    .andThen(() -> {
-      setRollerSpeed(RollerSetpoint.STOP);
-      setIndexerSpeed(RollerSetpoint.STOP);
-    });
+  public Command scoreCommand() {
+    // TODO
+    return this.run(() -> {});
   }
 
   /** Stop the rollers and put in the stow position. */
   public Command stowCommand() {
-    return this.run(
-      () -> {
-        setPivot(PivotSetpoint.STOW);
-        setRollerSpeed(RollerSetpoint.STOP);
-        setIndexerSpeed(RollerSetpoint.STOP);
-      }
-    );
+    // TODO
+    return this.run(() -> {});
   }
 }
