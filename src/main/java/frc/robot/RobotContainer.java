@@ -25,12 +25,12 @@ public class RobotContainer {
 
   private void configureBindings() {
     // TODO: Intake button
-
+    m_intakeButton.onTrue(m_intake.intakeCommand());
     // TODO: Extake button
-
+    m_intakeButton.onTrue(m_intake.extakeCommand());
     // TODO: Score button
-
     // TODO: Stow button
+    m_intakeButton.onTrue(m_intake.stowCommand());
   }
 
   public Command getAutonomousCommand() {
