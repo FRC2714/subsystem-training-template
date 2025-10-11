@@ -29,6 +29,7 @@ public class RobotContainer {
     // TODO: Extake button
     m_intakeButton.onTrue(m_intake.extakeCommand());
     // TODO: Score button
+    m_intakeButton.onTrue(m_intake.scoreCommand());
     // TODO: Stow button
     m_intakeButton.onTrue(m_intake.stowCommand());
   }
