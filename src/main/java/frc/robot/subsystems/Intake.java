@@ -166,7 +166,7 @@ public class Intake extends SubsystemBase {
       setIndexerSpeed(RollerSetpoint.SCORE);
       setRollerSpeed(RollerSetpoint.SCORE);
     })
-    .until(() -> (!m_outerBeamBreak.isPressed()))
+    .until(() -> (!m_innerBeamBreak.isPressed()))
     .andThen(() -> {
       setIndexerSpeed(RollerSetpoint.STOP);
       setRollerSpeed(RollerSetpoint.STOP);
