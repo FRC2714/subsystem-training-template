@@ -6,7 +6,7 @@ public final class Constants {
     public static final int kPivotMotorCanId = 12;
     public static final int kIndexerMotorCanId = 13;
 
-    public static final double kPivotThreshold = 5; // TODO
+    public static final double kPivotThreshold = 5;
 
     public static final int kBeamBreakDioChannel = 0;
     public static final double kP = 0.06;

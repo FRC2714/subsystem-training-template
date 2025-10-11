@@ -31,7 +31,7 @@ public class RobotContainer {
     m_extakeButton.whileTrue(m_intake.extakeCommand());
 
     // Score button
-    m_scoreButton.onTrue(m_intake.scoreCommand()); 
+    m_scoreButton.onTrue(m_intake.scoreCommand());
 
     // Stow button
     m_stowButton.onTrue(m_intake.stowCommand());
