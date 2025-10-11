@@ -24,9 +24,9 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    m_intakeButton.whileTrue(m_intake.intakeCommand());
+    m_intakeButton.onTrue(m_intake.intakeCommand());
 
-    m_extakeButton.whileTrue(m_intake.extakeCommand());
+    m_extakeButton.onTrue(m_intake.extakeCommand());
 
     m_scoreButton.onTrue(m_intake.scoreCommand());
 

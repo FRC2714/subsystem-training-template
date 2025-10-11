@@ -45,7 +45,7 @@ public class Configs {
           .voltageCompensation(12);
 
       // Configure indexer
-      indexerConfig.inverted(false).smartCurrentLimit(40).idleMode(IdleMode.kBrake);
+      indexerConfig.inverted(true).smartCurrentLimit(40).idleMode(IdleMode.kBrake);
       indexerConfig.limitSwitch.forwardLimitSwitchEnabled(false).reverseLimitSwitchEnabled(false);
       indexerConfig.signals.limitsPeriodMs(5);
     }

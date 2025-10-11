@@ -137,15 +137,15 @@ public class Intake extends SubsystemBase {
             () -> {
               setPivot(PivotSetpoint.INTAKE);
               setRollerSpeed(RollerSetpoint.INTAKE);
-              setIndexerSpeed(RollerSetpoint.INTAKE);
-            })
-        .until(() -> m_outerBeamBreak.isPressed())
-        .andThen(
-            () -> {
-              setRollerSpeed(RollerSetpoint.INTAKE_SLOW);
               setIndexerSpeed(RollerSetpoint.INTAKE_SLOW);
             })
         .until(() -> m_innerBeamBreak.isPressed())
+        .andThen(
+            () -> {
+              setRollerSpeed(RollerSetpoint.EXTATE);
+              setIndexerSpeed(RollerSetpoint.EXTATE);
+            })
+        .until(() -> m_outerBeamBreak.isPressed())
         .andThen(
             () -> {
               setRollerSpeed(RollerSetpoint.STOP);
@@ -170,12 +170,6 @@ public class Intake extends SubsystemBase {
               setPivot(PivotSetpoint.SCORE);
               setRollerSpeed(RollerSetpoint.SCORE);
               setIndexerSpeed(RollerSetpoint.SCORE);
-            })
-        .until(() -> !m_innerBeamBreak.isPressed())
-        .andThen(
-            () -> {
-              setRollerSpeed(RollerSetpoint.STOP);
-              setIndexerSpeed(RollerSetpoint.STOP);
             });
   }
 
