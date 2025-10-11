@@ -133,65 +133,50 @@ public class Intake extends SubsystemBase {
    * which is either scoring or extaking.
    */
   public Command intakeCommand() {
-    return this.run(
-            () -> {
-              setPivot(PivotSetpoint.INTAKE);
-              setRollerSpeed(RollerSetpoint.INTAKE);
-            })
-        .until(() -> (m_outerBeamBreak.isPressed()))
-        .andThen(
-            () -> {
-              setRollerSpeed(RollerSetpoint.INTAKE_SLOW);
-            })
-        .until(() -> (m_innerBeamBreak.isPressed() && !m_outerBeamBreak.isPressed()))
-        .andThen(
-            () -> {
-              setRollerSpeed(RollerSetpoint.STOP);
-            });
+    return this.run(() -> {
+      setPivot(PivotSetpoint.INTAKE);
+      setRollerSpeed(RollerSetpoint.INTAKE);
+      setIndexerSpeed(RollerSetpoint.INTAKE);
+    })
+    .until(() -> (m_innerBeamBreak.isPressed()))
+    .andThen(() -> {
+
+      setIndexerSpeed(RollerSetpoint.EXTATE);
+    })
+    .until(() -> (m_outerBeamBreak.isPressed()))
+    .andThen(() -> {
+      setRollerSpeed(RollerSetpoint.STOP);
+      setIndexerSpeed(RollerSetpoint.STOP);
+    });
   }
 
   /** Spit the game piece back out. */
   public Command extakeCommand() {
     // TODO
-    return this.run(
-            () -> {
-              setPivot(PivotSetpoint.EXTAKE);
-              setIndexerSpeed(RollerSetpoint.EXTATE);
-              setRollerSpeed(RollerSetpoint.EXTATE);
-            })
-        .until(() -> (!m_outerBeamBreak.isPressed() && !m_innerBeamBreak.isPressed()))
-        .andThen(
-            () -> {
-              setRollerSpeed(RollerSetpoint.STOP);
-              setIndexerSpeed(RollerSetpoint.STOP);
-            });
+    return this.run(() -> {
+      setPivot(PivotSetpoint.EXTAKE);
+      setIndexerSpeed(RollerSetpoint.EXTATE);
+      setRollerSpeed(RollerSetpoint.EXTATE);
+    });
   }
 
   /** Intake the game piece further through the robot. */
   public Command scoreCommand() {
     // TODO
-    return this.run(
-            () -> {
-              setPivot(PivotSetpoint.SCORE);
-              setIndexerSpeed(RollerSetpoint.SCORE);
-              setRollerSpeed(RollerSetpoint.SCORE);
-            })
-        .until(() -> (!m_innerBeamBreak.isPressed()))
-        .andThen(
-            () -> {
-              setIndexerSpeed(RollerSetpoint.STOP);
-              setRollerSpeed(RollerSetpoint.STOP);
-            });
+    return this.run(() -> {
+      setPivot(PivotSetpoint.SCORE);
+      setIndexerSpeed(RollerSetpoint.SCORE);
+      setRollerSpeed(RollerSetpoint.SCORE);
+    });
   }
 
   /** Stop the rollers and put in the stow position. */
   public Command stowCommand() {
     // TODO
-    return this.run(
-        () -> {
-          setPivot(PivotSetpoint.STOW);
-          setIndexerSpeed(RollerSetpoint.STOP);
-          setRollerSpeed(RollerSetpoint.STOP);
-        });
+    return this.run(() -> {
+      setPivot(PivotSetpoint.STOW);
+      setIndexerSpeed(RollerSetpoint.STOP);
+      setRollerSpeed(RollerSetpoint.STOP);
+    });
   }
 }

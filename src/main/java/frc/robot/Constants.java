@@ -29,7 +29,7 @@ public final class Constants {
       public static final double kIntake = 0.6;
       public static final double kIntakeSlow = 0.2;
       public static final double kExtake = -0.4;
-      public static final double kScore = -0.5;
+      public static final double kScore = 0.5;
       public static final double kStop = 0;
     }
   }
