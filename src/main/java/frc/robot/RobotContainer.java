@@ -24,13 +24,17 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // TODO: Intake button
+    // Intake button
+    m_intakeButton.whileTrue(m_intake.intakeCommand());
 
-    // TODO: Extake button
+    // Extake button
+    m_extakeButton.whileTrue(m_intake.extakeCommand());
 
-    // TODO: Score button
+    // Score button
+    m_scoreButton.onTrue(m_intake.scoreCommand()); 
 
-    // TODO: Stow button
+    // Stow button
+    m_stowButton.onTrue(m_intake.stowCommand());
   }
 
   public Command getAutonomousCommand() {
