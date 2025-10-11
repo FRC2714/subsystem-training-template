@@ -145,7 +145,7 @@ public class Intake extends SubsystemBase {
               setRollerSpeed(RollerSetpoint.INTAKE_SLOW);
               setIndexerSpeed(RollerSetpoint.INTAKE_SLOW);
             })
-        .until(() -> m_innerBeamBreak.isPressed())
+        .until(() -> m_innerBeamBreak.isPressed() && !m_outerBeamBreak.isPressed())
         .andThen(
             () -> {
               setRollerSpeed(RollerSetpoint.STOP);
@@ -171,7 +171,7 @@ public class Intake extends SubsystemBase {
               setRollerSpeed(RollerSetpoint.SCORE);
               setIndexerSpeed(RollerSetpoint.SCORE);
             })
-        .until(() -> !m_innerBeamBreak.isPressed())
+        .until(() -> !m_innerBeamBreak.isPressed() && !m_outerBeamBreak.isPressed())
         .andThen(
             () -> {
               setRollerSpeed(RollerSetpoint.STOP);
