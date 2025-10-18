@@ -8,7 +8,10 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Configs;
 import frc.robot.Constants;
@@ -137,9 +140,15 @@ public class Intake extends SubsystemBase {
             () -> {
               setPivot(PivotSetpoint.INTAKE);
               setRollerSpeed(RollerSetpoint.INTAKE);
-              setIndexerSpeed(RollerSetpoint.INTAKE);
             })
-        .until(() -> m_innerBeamBreak.isPressed() && !m_outerBeamBreak.isPressed())
+        .until(() -> m_outerBeamBreak.isPressed())
+        .andThen(
+            Commands.run(
+                    () -> {
+                      setRollerSpeed(RollerSetpoint.INTAKE_SLOW);
+                      setIndexerSpeed(RollerSetpoint.INTAKE_SLOW);
+                    })
+                .until(() -> m_innerBeamBreak.isPressed()))
         .andThen(
             () -> {
               setRollerSpeed(RollerSetpoint.STOP);
@@ -150,27 +159,27 @@ public class Intake extends SubsystemBase {
   /** Spit the game piece back out. */
   public Command extakeCommand() {
     return this.run(
-        () -> {
-          setPivot(PivotSetpoint.EXTAKE);
-          setRollerSpeed(RollerSetpoint.EXTAKE);
-          setIndexerSpeed(RollerSetpoint.EXTAKE);
-        });
-  }
-
-  /** Intake the game piece further through the robot. */
-  public Command scoreCommand() {
-    return this.run(
             () -> {
-              setPivot(PivotSetpoint.SCORE);
-              setRollerSpeed(RollerSetpoint.SCORE);
-              setIndexerSpeed(RollerSetpoint.SCORE);
+              setPivot(PivotSetpoint.EXTAKE);
+              setRollerSpeed(RollerSetpoint.EXTAKE);
+              setIndexerSpeed(RollerSetpoint.EXTAKE);
             })
-        .until(() -> !m_innerBeamBreak.isPressed())
+        .until(() -> m_outerBeamBreak.isPressed())
         .andThen(
             () -> {
               setRollerSpeed(RollerSetpoint.STOP);
               setIndexerSpeed(RollerSetpoint.STOP);
             });
+  }
+
+  /** Intake the game piece further through the robot. */
+  public Command scoreCommand() {
+    return this.run(
+        () -> {
+          setPivot(PivotSetpoint.SCORE);
+          setRollerSpeed(RollerSetpoint.SCORE);
+          setIndexerSpeed(RollerSetpoint.SCORE);
+        });
   }
 
   /** Stop the rollers and put in the stow position. */
@@ -181,5 +190,10 @@ public class Intake extends SubsystemBase {
           setRollerSpeed(RollerSetpoint.STOP);
           setIndexerSpeed(RollerSetpoint.STOP);
         });
+  }
+
+  @Override
+  public void periodic() {
+      SmartDashboard.putBoolean("Outerbeambreak pressed: ", m_outerBeamBreak.isPressed());
   }
 }
