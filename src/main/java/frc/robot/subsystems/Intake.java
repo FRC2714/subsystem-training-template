@@ -166,11 +166,11 @@ public class Intake extends SubsystemBase {
   /** Intake the game piece further through the robot. */
   public Command scoreCommand() {
     return this.run(
-            () -> {
-              setPivot(PivotSetpoint.SCORE);
-              setRollerSpeed(RollerSetpoint.SCORE);
-              setIndexerSpeed(RollerSetpoint.SCORE);
-            });
+        () -> {
+          setPivot(PivotSetpoint.SCORE);
+          setRollerSpeed(RollerSetpoint.SCORE);
+          setIndexerSpeed(RollerSetpoint.SCORE);
+        });
   }
 
   /** Stop the rollers and put in the stow position. */

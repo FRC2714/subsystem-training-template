@@ -3,6 +3,7 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import frc.robot.Constants.DragonConstants;
 
 public class Configs {
   public static final class Intake {
@@ -48,6 +49,44 @@ public class Configs {
       indexerConfig.inverted(true).smartCurrentLimit(40).idleMode(IdleMode.kBrake);
       indexerConfig.limitSwitch.forwardLimitSwitchEnabled(false).reverseLimitSwitchEnabled(false);
       indexerConfig.signals.limitsPeriodMs(5);
+    }
+  }
+
+  // may needa change some of this
+  public static final class Dragon {
+    public static final SparkFlexConfig pivotConfig = new SparkFlexConfig();
+    public static final SparkFlexConfig pivotRollerConfig = new SparkFlexConfig();
+
+    static {
+      pivotConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(40).voltageCompensation(12);
+      pivotConfig.inverted(true);
+      pivotConfig
+          .closedLoop
+          .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+          // Set PID values for position control
+          .p(Constants.DragonConstants.kP)
+          .outputRange(-1, 1)
+          .maxMotion
+          // Set MAXMotion parameters for position control
+          .maxVelocity(4200 * 360)
+          .maxAcceleration(6000 * 360)
+          .allowedClosedLoopError(0.5);
+      pivotConfig
+          .absoluteEncoder
+          .inverted(false)
+          .positionConversionFactor(360 / DragonConstants.kPivotReduction);
+
+      pivotConfig
+          .softLimit
+          .forwardSoftLimit(DragonConstants.kPivotMaxAngle)
+          .reverseSoftLimit(DragonConstants.kPivotMinAngle)
+          .forwardSoftLimitEnabled(true)
+          .reverseSoftLimitEnabled(true);
+
+      pivotRollerConfig.limitSwitch.forwardLimitSwitchEnabled(false);
+      pivotRollerConfig.inverted(false);
+
+      pivotRollerConfig.idleMode(IdleMode.kCoast).smartCurrentLimit(60).voltageCompensation(12);
     }
   }
 }
