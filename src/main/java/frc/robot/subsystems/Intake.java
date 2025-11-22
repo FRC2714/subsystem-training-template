@@ -15,15 +15,12 @@ import frc.robot.Constants;
 import frc.robot.Constants.Intake.PivotSetpoints;
 
 public class Intake extends SubsystemBase {
-  private SparkFlex m_pivot =
-      new SparkFlex(Constants.Intake.kPivotMotorCanId, MotorType.kBrushless);
+  private SparkFlex m_pivot = new SparkFlex(Constants.Intake.kPivotMotorCanId, MotorType.kBrushless);
   private AbsoluteEncoder m_pivotEncoder = m_pivot.getAbsoluteEncoder();
   private SparkClosedLoopController m_pivotController = m_pivot.getClosedLoopController();
 
-  private SparkFlex m_roller =
-      new SparkFlex(Constants.Intake.kRollerMotorCanId, MotorType.kBrushless);
-  private SparkFlex m_indexer =
-      new SparkFlex(Constants.Intake.kIndexerMotorCanId, MotorType.kBrushless);
+  private SparkFlex m_roller = new SparkFlex(Constants.Intake.kRollerMotorCanId, MotorType.kBrushless);
+  private SparkFlex m_indexer = new SparkFlex(Constants.Intake.kIndexerMotorCanId, MotorType.kBrushless);
 
   private SparkLimitSwitch m_outerBeamBreak = m_indexer.getReverseLimitSwitch();
   private SparkLimitSwitch m_innerBeamBreak = m_indexer.getForwardLimitSwitch();

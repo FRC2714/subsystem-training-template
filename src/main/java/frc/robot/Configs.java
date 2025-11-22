@@ -3,6 +3,7 @@ package frc.robot;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import frc.robot.Constants.Drive.ModuleConstants;
 
 public class Configs {
   public static final class Intake {
@@ -12,6 +13,8 @@ public class Configs {
 
     static {
       // Configure basic setting of the arm motor
+   
+      
       pivotConfig
           .smartCurrentLimit(40)
           .idleMode(IdleMode.kBrake)
@@ -49,5 +52,41 @@ public class Configs {
       indexerConfig.limitSwitch.forwardLimitSwitchEnabled(false).reverseLimitSwitchEnabled(false);
       indexerConfig.signals.limitsPeriodMs(5);
     }
+  }
+
+  public static final class MAXSwerveModule {
+    public static final SparkFlexConfig drivingConfig = new SparkFlexConfig();
+    public static final SparkFlexConfig turningConfig = new SparkFlexConfig();
+
+    static {
+      // Configure driving motor
+      drivingConfig
+          .inverted(false)
+          .idleMode(IdleMode.kBrake)
+          .smartCurrentLimit(40)
+          .voltageCompensation(12);
+      drivingConfig.closedLoop
+          .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+          .p(ModuleConstants.kDrivingP)
+          .i(ModuleConstants.kDrivingI)
+          .d(ModuleConstants.kDrivingD)
+          .outputRange(-1, 1);
+
+      // Configure turning motor
+      turningConfig
+          .inverted(false)
+          .idleMode(IdleMode.kBrake)
+          .smartCurrentLimit(20)
+          .voltageCompensation(12);
+      turningConfig.absoluteEncoder
+          .positionConversionFactor((2 * Math.PI) / ModuleConstants.kTurningEncoderResolution)
+          .inverted(false)
+          .zeroCentered(true);
+      turningConfig.closedLoop
+          .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+          .p(ModuleConstants.kTurningP)
+          .i(ModuleConstants.kTurningI)
+          .d(ModuleConstants.kTurningD);
+    }  
   }
 }
