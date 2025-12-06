@@ -4,37 +4,51 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.subsystems.Intake;
+import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class RobotContainer {
-  private final Intake m_intake = new Intake();
+  // The robot's subsystems
+  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
-  private final Joystick m_buttonBoxRight = new Joystick(0);
-  private final JoystickButton m_intakeButton = new JoystickButton(m_buttonBoxRight, 6);
-  private final JoystickButton m_extakeButton = new JoystickButton(m_buttonBoxRight, 5);
-  private final JoystickButton m_scoreButton = new JoystickButton(m_buttonBoxRight, 1);
-  private final JoystickButton m_stowButton = new JoystickButton(m_buttonBoxRight, 4);
+  // The driver's controller
+  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    configureBindings();
+    // Configure the button bindings
+    configureButtonBindings();
+
+    // Configure default commands
+    m_robotDrive.setDefaultCommand(
+        // The left stick controls translation of the robot.
+        // Turning is controlled by the X axis of the right stick.
+        new RunCommand(
+            () ->
+                m_robotDrive.drive(
+                    -MathUtil.applyDeadband(
+                        m_driverController.getLeftY(), OIConstants.kDriveDeadband),
+                    -MathUtil.applyDeadband(
+                        m_driverController.getLeftX(), OIConstants.kDriveDeadband),
+                    -MathUtil.applyDeadband(
+                        m_driverController.getRightX(), OIConstants.kDriveDeadband),
+                    true),
+            m_robotDrive));
   }
 
-  private void configureBindings() {
-    // TODO: Intake button
-    m_intakeButton.onTrue(m_intake.intakeCommand());
-    // TODO: Extake button
-    m_extakeButton.onTrue(m_intake.extakeCommand());
-    // TODO: Score button
-    m_scoreButton.onTrue(m_intake.scoreCommand());
-    // TODO: Stow button
-    m_stowButton.onTrue(m_intake.stowCommand());
-  }
-
-  public Command getAutonomousCommand() {
-    return Commands.print("No autonomous command configured");
+  /**
+   * Use this method to define your button->command mappings. Buttons can be created by
+   * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses ({@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then calling passing it to a
+   * {@link JoystickButton}.
+   */
+  private void configureButtonBindings() {
+    new JoystickButton(m_driverController, Button.kR1.value)
+        .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
   }
 }

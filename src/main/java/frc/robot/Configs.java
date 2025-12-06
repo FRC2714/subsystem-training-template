@@ -13,8 +13,7 @@ public class Configs {
 
     static {
       // Configure basic setting of the arm motor
-   
-      
+
       pivotConfig
           .smartCurrentLimit(40)
           .idleMode(IdleMode.kBrake)
@@ -65,7 +64,8 @@ public class Configs {
           .idleMode(IdleMode.kBrake)
           .smartCurrentLimit(40)
           .voltageCompensation(12);
-      drivingConfig.closedLoop
+      drivingConfig
+          .closedLoop
           .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
           .p(ModuleConstants.kDrivingP)
           .i(ModuleConstants.kDrivingI)
@@ -78,15 +78,17 @@ public class Configs {
           .idleMode(IdleMode.kBrake)
           .smartCurrentLimit(20)
           .voltageCompensation(12);
-      turningConfig.absoluteEncoder
+      turningConfig
+          .absoluteEncoder
           .positionConversionFactor((2 * Math.PI) / ModuleConstants.kTurningEncoderResolution)
           .inverted(false)
           .zeroCentered(true);
-      turningConfig.closedLoop
+      turningConfig
+          .closedLoop
           .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
           .p(ModuleConstants.kTurningP)
           .i(ModuleConstants.kTurningI)
           .d(ModuleConstants.kTurningD);
-    }  
+    }
   }
 }

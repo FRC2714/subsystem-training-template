@@ -45,30 +45,32 @@ public final class Constants {
 
       public static final boolean kGyroReversed = false;
 
-      public static final int kFrontLeftDrivingCanId = 1;
-      public static final int kFrontLeftTurningCanId = 2;
+      public static final int kFrontLeftDrivingCanId = 5;
+      public static final int kFrontLeftTurningCanId = 6;
       public static final double kFrontLeftChassisAngularOffset = 0.0;
 
-      public static final int kFrontRightDrivingCanId = 5;
-      public static final int kFrontRightTurningCanId = 6;
+      public static final int kFrontRightDrivingCanId = 7;
+      public static final int kFrontRightTurningCanId = 8;
       public static final double kFrontRightChassisAngularOffset = 0.0;
 
       public static final int kRearLeftDrivingCanId = 3;
-      public static final int kRearLeftTurningCanId = 7;
+      public static final int kRearLeftTurningCanId = 4;
       public static final double kBackLeftChassisAngularOffset = 0.0;
 
-      public static final int kRearRightDrivingCanId = 4;
-      public static final int kRearRightTurningCanId = 8;
+      public static final int kRearRightDrivingCanId = 1;
+      public static final int kRearRightTurningCanId = 2;
       public static final double kBackRightChassisAngularOffset = 0.0;
 
       public static final double kWheelBase = 0.5; // meters
       public static final double kTrackWidth = 0.5; // meters
 
-      public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-            new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-            new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-            new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-            new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));;
+      public static final SwerveDriveKinematics kDriveKinematics =
+          new SwerveDriveKinematics(
+              new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+              new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+              new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
+              new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+      ;
 
       public static final double kMaxSpeedMetersPerSecond = 4.0;
       public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI; // 180
@@ -80,16 +82,21 @@ public final class Constants {
       public static final double kExtake = -0.5;
       public static final double kStop = 0;
 
-      public static final double kDrivingP = 2 * Math.PI; // radians per second
-      public static final double kDrivingI = 2 * Math.PI; // radians per second
-      public static final double kDrivingD = 2 * Math.PI; // radians per second
+      public static final double kDrivingP = 0.04; // radians per second
+      public static final double kDrivingI =0; // radians per second
+      public static final double kDrivingD = 0; // radians per second
       public static final double kDrivingF = 2 * Math.PI; // radians per second
 
-      public static final double kTurningP = 2 * Math.PI; // radians per second
-      public static final double kTurningI = 2 * Math.PI; // radians per second
-      public static final double kTurningD = 2 * Math.PI; // radians per second
+      public static final double kTurningP = 1; // radians per second
+      public static final double kTurningI = 0; // radians per second
+      public static final double kTurningD = 0; // radians per second
 
       public static final int kTurningEncoderResolution = 4096;
     }
+  }
+
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+    public static final double kDriveDeadband = 0.1;
   }
 }
